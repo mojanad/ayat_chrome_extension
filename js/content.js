@@ -26,28 +26,22 @@ function getData() {
 
 ///////////////////////// display the data //////////////////////////////////
 function show() {
-  let container = document.createElement("div");
-  document.body.appendChild(container);
+  const existing = document.querySelector('.quote');
+  if (existing) existing.remove();
+
+  const container = document.createElement("div");
   container.innerHTML = ayahText;
   container.style.padding = '10px 20px';
   container.classList.add('quote');
-  if (ayahText.length >= 100) {
-    let timer = setTimeout(() => { container.classList.add('d-none') }, ayahText.length * 50);
-    container.style.animationDuration = `${ayahText.length / 20}s`; // best duration
-    document.addEventListener('mouseover', function (e) {
-      console.log(e.target.classList == 'quote');
-    })
-  } else {
-    container.style.animationDuration = `5s`;
-    let timer = setTimeout(() => { container.classList.add('d-none') }, 6000);
-    document.addEventListener('mouseover', function (e) {
-      clearTimeout(timer)
-      console.log(e.target.classList == 'quote');
-    })
-  }
-// close the notification onclick
-  container.addEventListener('click', () => { container.style.display = 'none' })
+  document.body.appendChild(container);
 
+  const duration = ayahText.length >= 100 ? ayahText.length / 20 : 5;
+  const hideDelay = ayahText.length >= 100 ? ayahText.length * 50 : 6000;
+  container.style.animationDuration = `${duration}s`;
+
+  const timer = setTimeout(() => container.classList.add('d-none'), hideDelay);
+  container.addEventListener('click', () => {
+    clearTimeout(timer);
+    container.remove();
+  });
 }
-
-

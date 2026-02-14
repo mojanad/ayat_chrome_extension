@@ -2,7 +2,6 @@
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 10px 2px #0000001b;
   position: fixed;
-  /* padding: 10px 20px; */
   bottom: 50px;
   right: 20px;
   opacity: 0;
@@ -27,7 +26,6 @@
   90% {
     opacity: 1;
   }
-
   to {
     opacity: 0;
   }
