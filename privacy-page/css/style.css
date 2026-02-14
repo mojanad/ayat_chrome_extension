@@ -1,0 +1,114 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #fafafa;
+  --color-surface: #fff;
+  --color-text: #1a1a1a;
+  --color-text-muted: #64748b;
+  --color-accent: #0f766e;
+  --color-border: #e2e8f0;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --max-width: 640px;
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --radius: 8px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0f172a;
+    --color-surface: #1e293b;
+    --color-text: #f1f5f9;
+    --color-text-muted: #94a3b8;
+    --color-border: #334155;
+  }
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: var(--space-lg);
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+
+.page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header h1 {
+  margin: 0 0 var(--space-xs) 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header p {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.section {
+  margin-bottom: var(--space-xl);
+}
+
+.section h2 {
+  margin: 0 0 var(--space-md) 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.section p {
+  margin: 0 0 var(--space-md) 0;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.section p:last-child {
+  margin-bottom: 0;
+}
+
+.footer {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 480px) {
+  body {
+    padding: var(--space-xl);
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .section h2 {
+    font-size: 1.25rem;
+  }
+}
