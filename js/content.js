@@ -24,24 +24,62 @@ function getData() {
   })
 }
 
+const checkmarkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+const closeSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>';
+
+function dismissToast(container, timer) {
+  clearTimeout(timer);
+  container.classList.add('ayat-toast--out');
+  setTimeout(() => container.remove(), 280);
+}
+
 ///////////////////////// display the data //////////////////////////////////
 function show() {
-  const existing = document.querySelector('.quote');
+  const existing = document.querySelector('.ayat-toast');
   if (existing) existing.remove();
 
   const container = document.createElement("div");
-  container.innerHTML = ayahText;
-  container.style.padding = '10px 20px';
-  container.classList.add('quote');
+  container.classList.add('ayat-toast');
+  container.style.position = 'fixed';
+
+  // const icon = document.createElement("div");
+  // icon.className = 'ayat-toast__icon';
+  // icon.innerHTML = checkmarkSvg;
+
+  const body = document.createElement("div");
+  body.className = 'ayat-toast__body';
+  const title = document.createElement("p");
+  title.className = 'ayat-toast__title';
+  title.textContent = 'آيات';
+  const message = document.createElement("p");
+  message.className = 'ayat-toast__message';
+  message.textContent = ayahText;
+  body.appendChild(title);
+  body.appendChild(message);
+
+  const closeBtn = document.createElement("button");
+  closeBtn.type = 'button';
+  closeBtn.className = 'ayat-toast__close';
+  closeBtn.setAttribute('aria-label', 'Close');
+  closeBtn.innerHTML = closeSvg;
+
+  // container.appendChild(icon);
+  container.appendChild(body);
+  container.appendChild(closeBtn);
+
   document.body.appendChild(container);
 
-  const duration = ayahText.length >= 100 ? ayahText.length / 20 : 5;
   const hideDelay = ayahText.length >= 100 ? ayahText.length * 50 : 6000;
-  container.style.animationDuration = `${duration}s`;
+  const timer = setTimeout(() => dismissToast(container, timer), hideDelay);
 
-  const timer = setTimeout(() => container.classList.add('d-none'), hideDelay);
-  container.addEventListener('click', () => {
-    clearTimeout(timer);
-    container.remove();
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dismissToast(container, timer);
+  });
+
+  container.addEventListener('click', (e) => {
+    if (e.target === container || e.target.closest('.ayat-toast__body')) {
+      dismissToast(container, timer);
+    }
   });
 }

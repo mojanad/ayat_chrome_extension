@@ -1,36 +1,127 @@
-.quote {
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 0 10px 2px #0000001b;
+.ayat-toast {
+  --ayat-bg: #f0fdf6;
+  --ayat-border: #99f6e0;
+  --ayat-icon-start: #86efac;
+  --ayat-icon-end: #5eead4;
+  --ayat-title: #0f172a;
+  --ayat-text: #334155;
+  --ayat-close: #64748b;
+  --ayat-radius: 12px;
+  --ayat-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.02);
+
   position: fixed;
-  bottom: 50px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
+  max-width: min(380px, calc(100vw - 48px));
+  padding: 16px 40px 16px 16px;
+  background: var(--ayat-bg);
+  border: 1px solid var(--ayat-border);
+  border-radius: var(--ayat-radius);
+  box-shadow: var(--ayat-shadow);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  z-index: 2147483647;
   opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  animation: ayat-toast-in 0.4s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.ayat-toast__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--ayat-icon-start) 0%, var(--ayat-icon-end) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ayat-toast__icon svg {
+  width: 22px;
+  height: 22px;
+  color: #fff;
+}
+
+.ayat-toast__body {
+  flex: 1;
+  min-width: 0;
   text-align: right;
-  color: #0a0f18;
-  max-width: fit-content;
-  border-radius: 8px;
-  border-right: solid rgb(0, 106, 255);
-  animation-name: notification;
-  z-index: 999999;
+  padding-inline: 6px;
 }
-.quote:hover {
+
+.ayat-toast__title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--ayat-title);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.ayat-toast__message {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--ayat-text);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.ayat-toast__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--ayat-close);
   cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
 }
-@keyframes notification {
+
+.ayat-toast__close:hover {
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ayat-title);
+}
+
+.ayat-toast__close svg {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes ayat-toast-in {
   from {
     opacity: 0;
-  }
-  20% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
+    transform: translateY(12px) scale(0.98);
   }
   to {
-    opacity: 0;
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-.d-none {
+.ayat-toast.ayat-toast--out {
+  animation: ayat-toast-out 0.3s ease-in forwards;
+}
+
+@keyframes ayat-toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+.ayat-toast.d-none {
   display: none;
 }
